@@ -141,13 +141,48 @@ class Phone(AttrDict):
         Disables this phone
         """
         return self.__call_forwarding('0')
-        
-    def __call_forwarding(self, enabled='1'):
-        """
-        Enables or disables this phone
-        """
-        self.voice.__validate_special_page('default_forward',
-            {'enabled':enabled, 'phoneId': self.id})
+		
+	def enableSMS(self):
+		"""
+		Enable sms forwarding to a forwarding phone
+		"""
+		return self.__sms_forwarding()
+
+	def disableSMS(self):
+		"""
+		Disable sms forwarding to a forwarding phone
+		"""
+		return self.__sms_forwarding('0')
+		
+	def enableVoicemail(self,):
+		"""
+		Notify a forwarding number of new voicemails via text
+		"""
+		return self.__voice_notify()
+
+	def disableVoicemail(self):
+		"""
+		Do not notify a forwarding number of new voicemails
+		"""
+		return self.__voice_notify('0')
+
+	def __call_forwarding(self, enabled='1'):
+		"""
+		Enables or disables this phone
+		"""
+		self.voice.__validate_special_page('default_forward', {'enabled':enabled, 'phoneId': self.id})
+   
+	def __sms_forwarding(self, enabled='1'):
+		"""
+		Endable or Disable sms forwarding to a forwarding phone
+		"""
+		self.voice.__validate_special_page('sms_forward', {'enabled':enabled, 'phoneId': self.id})
+			
+	def __voice_notify(self, enabled='1'):
+		"""
+		Endable or Disable notify a forwarding number of new voicemails
+		"""
+		self.voice.__validate_special_page('voicemailNotify', {'enabled':enabled, 'phoneId': self.id})
         
     def __str__(self):
         return self.phoneNumber
@@ -178,7 +213,7 @@ class Message(AttrDict):
      
     """
     def __init__(self, folder, id, data):
-        assert is_sha1(id), 'Message id not a SHA1 hash'
+        #assert is_sha1(id), 'Message id not a SHA1 hash'
         self.folder = folder
         self.id = id
         super(AttrDict, self).__init__(data)

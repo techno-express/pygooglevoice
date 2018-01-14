@@ -18,6 +18,7 @@ forwardingNumber=
 #  2 - Mobile
 #  3 - Work
 #  7 - Gizmo
+#  9 - Googletalk
 phoneType=2
 """
 
@@ -33,26 +34,34 @@ TYPES = {
 
 DEBUG = False
 
-LOGIN = 'https://accounts.google.com/ServiceLogin?continue=https://www.google.com/voice&rip=1&nojavascript=1&followup=https://www.google.com/voice&service=grandcentral&ltmpl=open&flowName=GlifWebSignIn&flowEntry=Identifier'
+LOGIN = 'https://accounts.google.com/ServiceLogin?continue=https://www.google.com/voice&rip=1&nojavascript=1&followup=https://www.google.com/voice&service=grandcentral&ltmpl=open&rip=1&flowName=GlifWebSignIn&flowEntry=Identifier'
+#LOGIN = 'https://accounts.google.com/ServiceLogin?continue=https://www.google.com/voice&rip=1&nojavascript=1&followup=https://www.google.com/voice&service=grandcentral&ltmpl=open&flowName=GlifWebSignIn&flowEntry=Identifier'
+
 LOGIN_POST = 'https://accounts.google.com/signin/challenge/sl/password?service=grandcentral&continue=https://www.google.com/voice/redirection/voice&followup=https://www.google.com/voice&ltmpl=open'
 
 USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36'
 
 SMSAUTH = 'https://accounts.google.com/SmsAuth'
-FEEDS = ('inbox', 'starred', 'all', 'spam', 'trash', 'voicemail', 'sms',
+FEEDS = ('inbox', 'starred', 'all', 'history', 'spam', 'trash', 'voicemail', 'sms',
         'recorded', 'placed', 'received', 'missed')
 
 BASE = 'https://www.google.com/voice/b/0/'
 LOGOUT = 'https://www.google.com/voice/account/signout'
 INBOX = BASE + '#inbox'
+HISTORY = BASE + '#history'
 CALL = BASE + 'call/connect/'
 CANCEL = BASE + 'call/cancel/'
 DEFAULT_FORWARD = BASE + 'settings/editDefaultForwarding/'
 FORWARD = BASE + 'settings/editForwarding/'
+SMS_FORWARD = BASE + 'settings/editForwardingSms/'
+VOICEMAILNOTIFY = BASE + 'settings/editVoicemailSms/'
+ADDNOTE = BASE + 'inbox/savenote/'
+DELETENOTE = BASE + 'inbox/deletenote/'
 DELETE = BASE + 'inbox/deleteMessages/'
 ARCHIVE = BASE + 'inbox/archiveMessages/'
 MARK = BASE + 'inbox/mark/'
 STAR = BASE + 'inbox/star/'
+BLOCK = BASE + 'inbox/block/'
 SMS = BASE + 'sms/send/'
 DOWNLOAD = BASE + 'media/send_voicemail/'
 BALANCE = BASE + 'settings/billingcredit/'
@@ -64,6 +73,7 @@ XML_MESSAGE = BASE + 'inbox/message/'
 XML_INBOX = XML_RECENT + 'inbox/'
 XML_STARRED = XML_RECENT + 'starred/'
 XML_ALL = XML_RECENT + 'all/'
+XML_HISTORY = XML_RECENT + 'history/'
 XML_SPAM = XML_RECENT + 'spam/'
 XML_TRASH = XML_RECENT + 'trash/'
 XML_VOICEMAIL = XML_RECENT + 'voicemail/'

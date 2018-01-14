@@ -72,7 +72,7 @@ class Voice(object):
 
         content = self.__do_page('login').read()
         # holy hackjob
-        # galx = re.search(r"type=\"hidden\"\s+name=\"GALX\"\s+value=\"(.+)\"", content).group(1)
+        #galx = re.search(r"type=\"hidden\"\s+name=\"GALX\"\s+value=\"(.+)\"", content).group(1)
         gxf = re.search(r"type=\"hidden\"\s+name=\"gxf\"\s+value=\"(.+)\"", content).group(1)
         result = self.__do_page('login_post', {'Email': email, 'Passwd': passwd, 'gxf': gxf})
 
@@ -81,12 +81,12 @@ class Voice(object):
 
             try:
                 smsToken = re.search(r"name=\"smsToken\"\s+value=\"([^\"]+)\"", content).group(1)
-                # galx = re.search(r"name=\"GALX\"\s+value=\"([^\"]+)\"", content).group(1)
+                #galx = re.search(r"name=\"GALX\"\s+value=\"([^\"]+)\"", content).group(1)
                 content = self.__do_page('login', {'smsToken': smsToken, 'service': "grandcentral", })
             except AttributeError:
                 raise LoginError
 
-            del smsKey, smsToken, gxf # , galx
+            del smsKey, smsToken, gxf # galx,
 
         del email, passwd
 
@@ -207,13 +207,29 @@ class Voice(object):
         assert is_sha1(msg), 'Message id not a SHA1 hash'
         self.__messages_post('archive', msg, archive=archive)
 
+    def addNote(self, msg, text):
+		"""
+		Add a note to a message in a Google Voice Account to send within the SMS.
+		"""
+		if isinstance(msg, Message):
+			msg = msg.id
+		self.__messages_post('addNote', msg, text)
+
+    def deleteNote(self, msg):
+		"""
+		Removes a note from a message in a Google Voice Account.
+		"""
+		if isinstance(msg, Message):
+			msg = msg.id
+		self.__messages_post('deleteNote', msg)
+		
     def delete(self, msg, trash=1):
         """
         Moves this message to the Trash. Use ``message.delete(0)`` to move it out of the Trash.
         """
         if isinstance(msg, Message):
             msg = msg.id
-        assert is_sha1(msg), 'Message id not a SHA1 hash'
+        #assert is_sha1(msg), 'Message id not a SHA1 hash'
         self.__messages_post('delete', msg, trash=trash)
 
     def download(self, msg, adir=None):
@@ -227,7 +243,7 @@ class Voice(object):
         from os import path, getcwd
         if isinstance(msg, Message):
             msg = msg.id
-        assert is_sha1(msg), 'Message id not a SHA1 hash'
+        #assert is_sha1(msg), 'Message id not a SHA1 hash'
         if adir is None:
             adir = getcwd()
         try:
