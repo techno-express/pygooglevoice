@@ -11,3 +11,7 @@ You can use the Python API or command line script to schedule calls, check for n
 Works for Python 2 and Python 3
 
 Full documentation is available up at http://sphinxdoc.github.com/pygooglevoice/
+
+[![Coverage Status](https://coveralls.io/repos/github/techno-express/pygooglevoice/badge.svg?branch=master)](https://coveralls.io/github/techno-express/pygooglevoice?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/28b8517b14fed5571fba/maintainability)](https://codeclimate.com/github/techno-express/pygooglevoice/maintainability)
+[![Build Status](https://travis-ci.org/techno-express/pygooglevoice.svg?branch=master)](https://travis-ci.org/techno-express/pygooglevoice)
